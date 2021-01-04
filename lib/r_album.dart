@@ -18,10 +18,10 @@ class RAlbum {
   }
 
   /// save files in album
-  static Future saveAlbum(String albumName, List<String> filePaths) {
+  static Future saveAlbum(String albumName, Map<String, String> files) {
     return _channel.invokeMethod('saveAlbum', {
       'albumName': albumName,
-      'filePaths': filePaths,
+      'filePaths': files,
     });
   }
 }

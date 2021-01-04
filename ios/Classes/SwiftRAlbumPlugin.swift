@@ -32,14 +32,14 @@ public class SwiftRAlbumPlugin: NSObject, FlutterPlugin {
     private func saveAlbum(_ call: FlutterMethodCall, result: @escaping FlutterResult){
          let arguments = call.arguments as! Dictionary<String,Any>
          let albumName = arguments["albumName"] as! String
-         let filePaths = arguments["filePaths"] as! [String]
+         let files = arguments["files"] as! [String]
          let albumSaver = AlbumSaver(folderName: albumName)
-        for path in filePaths {
+        for path in files.values {
             let asset = AVURLAsset.init(url: URL(fileURLWithPath: path), options: nil)
             let tracks = asset.tracks(withMediaType: AVMediaType.video)
-            if(tracks.count > 0){
+            if (tracks.count > 0) {
                 albumSaver.saveVideo(filePath: path)
-            }else{
+            } else {
                 albumSaver.saveImage(filePath: path)
             }
         }

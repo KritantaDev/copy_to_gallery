@@ -52,13 +52,13 @@ public class RAlbumPlugin : FlutterPlugin, MethodCallHandler {
     private fun saveAlbum(call: MethodCall, result: Result) {
 
         val albumName = call.argument<String>("albumName")
-        val filePaths = call.argument<List<String>>("filePaths")
+        val files = call.argument<Map<String, String>>("files")
         if (albumName == null) {
-            result.error("100", "albumName is not null", null)
+            result.error("100", "albumName cannot be null", null)
             return
         }
-        if (filePaths == null) {
-            result.error("101", "filePaths is not null", null)
+        if (files == null) {
+            result.error("101", "files cannot be null", null)
             return
         }
         thread {
@@ -69,14 +69,8 @@ public class RAlbumPlugin : FlutterPlugin, MethodCallHandler {
 
             var resultPaths = mutableListOf<String>()
 
-            for (path in filePaths) {
-                val fileName: String = if (path.lastIndexOf('.') == -1) {
-                    "${System.currentTimeMillis()}"
-                } else {
-                    val suffix: String = path.substring(path.lastIndexOf(".") + 1)
-                    "${System.currentTimeMillis()}.$suffix"
-                }
-                val itemFile = File(rootFile, fileName)
+            for ((name, path) in files) {
+                val itemFile = File(rootFile, name)
                 if (!itemFile.exists()) itemFile.createNewFile()
                 val outPut = itemFile.outputStream()
                 val inPut = FileInputStream(path)
