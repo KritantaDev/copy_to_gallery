@@ -21,7 +21,7 @@ class RAlbum {
   static Future saveAlbum(String albumName, Map<String, String> files) {
     return _channel.invokeMethod('saveAlbum', {
       'albumName': albumName,
-      'filePaths': files,
+      'files': files,
     });
   }
 }
