@@ -32,7 +32,7 @@ public class CopyToGalleryPlugin: NSObject, FlutterPlugin {
   private func saveAlbum(_ call: FlutterMethodCall, result: @escaping FlutterResult){
         let arguments = call.arguments as! Dictionary<String,Any>
         let albumName = arguments["albumName"] as! String
-        let files = arguments["files"] as! [String]
+        let files = arguments["files"] as! Dictionary<String,String>
         let albumSaver = AlbumSaver(folderName: albumName)
       for path in files.keys {
           let asset = AVURLAsset.init(url: URL(fileURLWithPath: path), options: nil)
