@@ -80,8 +80,10 @@ public class CopyToGalleryPlugin : FlutterPlugin, MethodCallHandler {
                     org.copyTo(target, true)
                 } catch (exception: NoSuchFileException) {
                     result.error("102", "file at given path does not exist", null)
+                    return@thread
                 } catch (exception: IOException) {
                     result.error("103", "couldnt copy file", null)
+                    return@thread
                 }
                 
                 resultPaths.add(target.absolutePath)
