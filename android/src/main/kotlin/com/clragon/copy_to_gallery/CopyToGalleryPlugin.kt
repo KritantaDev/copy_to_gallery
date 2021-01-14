@@ -57,9 +57,11 @@ public class CopyToGalleryPlugin : FlutterPlugin, MethodCallHandler {
         val files = call.argument<Map<String, String>>("files")
         if (albumName == null) {
             result.error("100", "albumName cannot be null", null)
+            return
         }
         if (files == null) {
             result.error("101", "files cannot be null", null)
+            return
         }
         thread {
             val rootFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), albumName)
@@ -78,10 +80,8 @@ public class CopyToGalleryPlugin : FlutterPlugin, MethodCallHandler {
                     org.copyTo(target, true)
                 } catch (exception: NoSuchFileException) {
                     result.error("102", "file at given path does not exist", null)
-                    return
                 } catch (exception: IOException) {
                     result.error("103", "couldnt copy file", null)
-                    return
                 }
                 
                 resultPaths.add(target.absolutePath)
