@@ -15,6 +15,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.io.File
+import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.concurrent.thread
@@ -56,11 +57,9 @@ public class CopyToGalleryPlugin : FlutterPlugin, MethodCallHandler {
         val files = call.argument<Map<String, String>>("files")
         if (albumName == null) {
             result.error("100", "albumName cannot be null", null)
-            return
         }
         if (files == null) {
             result.error("101", "files cannot be null", null)
-            return
         }
         thread {
             val rootFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), albumName)
