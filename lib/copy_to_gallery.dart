@@ -23,7 +23,7 @@ class CopyToGallery {
         Map.fromIterable(filepaths, key: (v) => v, value: (v) => null);
     return _channel.invokeMethod('saveAlbum', {
       'albumName': albumName,
-      'filePaths': files,
+      'files': files,
     });
   }
 
@@ -35,7 +35,7 @@ class CopyToGallery {
   static Future copyNamedPictures(String albumName, Map<String, String> files) {
     return _channel.invokeMethod('saveAlbum', {
       'albumName': albumName,
-      'filePaths': files,
+      'files': files,
     });
   }
 }
