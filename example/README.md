@@ -1,6 +1,6 @@
-# r_album_example
+# copy_to_gallery_example
 
-Demonstrates how to use the r_album plugin.
+Demonstrates how to use the copy_to_gallery plugin.
 
 ## Getting Started
 

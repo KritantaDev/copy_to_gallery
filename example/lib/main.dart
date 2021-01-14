@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:r_album/r_album.dart';
-import 'package:r_album_example/video_widget.dart';
+import 'package:copy_to_gallery/copy_to_gallery.dart';
+import 'package:copy_to_gallery_example/video_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -154,7 +154,7 @@ class _MyAppState extends State<MyApp> {
           });
           if (_file != null) {
             if (await canReadStorage()) {
-              await RAlbum.saveAlbum(
+              await CopyToGallery.copyPictures(
                 "test_album_saver2",
                 [_file.path],
               );
@@ -202,7 +202,7 @@ class _MyAppState extends State<MyApp> {
             setState(() {
               _isSaving = true;
             });
-            await RAlbum.createAlbum("MyTestAlbum");
+            await CopyToGallery.createAlbum("MyTestAlbum");
             setState(() {
               _isSaving = false;
             });

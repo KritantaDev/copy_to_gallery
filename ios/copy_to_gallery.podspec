@@ -1,13 +1,13 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint r_album.podspec' to validate before publishing.
+# Run `pod lib lint copy_to_gallery.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'r_album'
+  s.name             = 'copy_to_gallery'
   s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin.'
+  s.summary          = 'A flutter plugin to copy images to the OS gallery'
   s.description      = <<-DESC
-A new Flutter plugin.
+A flutter plugin to copy images to the OS gallery
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }

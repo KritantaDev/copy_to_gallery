@@ -1,4 +1,4 @@
-group 'com.rhyme.r_album'
+group 'com.clragon.copy_to_gallery'
 version '1.0-SNAPSHOT'
 
 buildscript {

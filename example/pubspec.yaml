@@ -1,5 +1,5 @@
-name: r_album_example
-description: Demonstrates how to use the r_album plugin.
+name: copy_to_gallery_example
+description: Demonstrates how to use the copy_to_gallery plugin.
 publish_to: 'none'
 
 environment:
@@ -20,7 +20,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  r_album:
+  copy_to_gallery:
     path: ../
 
 # For information on the generic Dart part of this file, see the

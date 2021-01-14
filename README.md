@@ -1,7 +1,5 @@
 # copy_to_gallery
 
-![](screen/r_album.png)
-
 A Flutter plugin to save images and videos to the gallery. 
 Works for iOS and Android.
 
@@ -12,30 +10,34 @@ Works for iOS and Android.
 
 ```dart
 dependencies:
-  r_album:
+  copy_to_gallery:
     git:
-      url: git://github.com/clragon/r_album.git
-      ref: master
+      url: git://github.com/clragon/copy_to_gallery.git
 ```
 
-2. import it
+2. import package
 
 ```dart
-import 'package:r_album/r_album.dart';
+import 'package:copy_to_gallery/copy_to_gallery.dart';
 ```
 
 3. (optional) create a new album.
 
 ```dart
-await RAlbum.createAlbum("your album name");
+await CopyToGallery.createAlbum("album name");
 ```
 
 4. save image or video files in album.
 
 ```dart
-await RAlbum.saveAlbum("your album name", {"filename1": "filepath1", "filename2": "filepath2"...});
+await CopyToGallery.copyPictures("album name", ["file path 1", "file path2 "...]);
 ```
-file names are ignored on iOS.
+
+- or with names (are ignored on iOS):
+
+```dart
+await CopyToGallery.copyNamedPictures("album name", {"file path 1": "file name 1", "file path 2": "file name 2"...});
+```
 
 ## Credit
 

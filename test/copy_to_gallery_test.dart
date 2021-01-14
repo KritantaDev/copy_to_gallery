@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:r_album/r_album.dart';
+import 'package:copy_to_gallery/copy_to_gallery.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('r_album');
+  const MethodChannel channel = MethodChannel('copy_to_gallery');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-//    expect(await RAlbum.platformVersion, '42');
+    // expect(await CopyToGallery.platformVersion, '42');
   });
 }

@@ -1,4 +1,4 @@
-package com.rhyme.r_album
+package com.clragon.copy_to_gallery
 
 import android.app.Activity
 import android.content.Context
@@ -15,19 +15,20 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.io.File
-import java.io.FileInputStream
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.concurrent.thread
 
-/** RAlbumPlugin */
-const val methodName: String = "com.rhyme_lph/r_album"
+
+const val methodName: String = "com.clragon/copy_to_gallery"
 var context: Context? = null
 
-public class RAlbumPlugin : FlutterPlugin, MethodCallHandler {
+public class CopyToGalleryPlugin : FlutterPlugin, MethodCallHandler {
     private val handler: Handler = Handler()
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
         val channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), methodName)
-        channel.setMethodCallHandler(RAlbumPlugin())
+        channel.setMethodCallHandler(CopyToGalleryPlugin())
 
     }
 
@@ -37,7 +38,7 @@ public class RAlbumPlugin : FlutterPlugin, MethodCallHandler {
             context = registrar.activity()
 
             val channel = MethodChannel(registrar.messenger(), methodName)
-            channel.setMethodCallHandler(RAlbumPlugin())
+            channel.setMethodCallHandler(CopyToGalleryPlugin())
         }
     }
 
@@ -63,31 +64,30 @@ public class RAlbumPlugin : FlutterPlugin, MethodCallHandler {
         }
         thread {
             val rootFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), albumName)
-            if (!rootFile.exists()) {
-                rootFile.mkdirs()
-            }
-
             var resultPaths = mutableListOf<String>()
 
-            for ((name, path) in files) {
-                val itemFile = File(rootFile, name)
-                if (!itemFile.exists()) itemFile.createNewFile()
-                val outPut = itemFile.outputStream()
-                val inPut = FileInputStream(path)
-                val buf = ByteArray(1024)
-                var len = 0
-                while (true) {
-                    len = inPut.read(buf)
-                    if (len == -1) break
-                    outPut.write(buf, 0, len)
+            for ((path, name) in files) {
+                val org = File(path)
+                var fileName = name
+                if (name.isNullOrEmpty()) {
+                    val now = LocalDateTime.now()
+                    val formatter = DateTimeFormatter.ofPattern("YYYYYMMdd_HHmmssSS")
+                    fileName = now.format(formatter)
                 }
-                outPut.flush()
-                outPut.close()
-
-                inPut.close()
-                resultPaths.add(itemFile.absolutePath)
+                val target = File(rootFile, fileName)
+                try {
+                    org.copyTo(target, true)
+                } catch (exception: NoSuchFileException) {
+                    result.error("102", "file at given path does not exist", null)
+                    return
+                } catch (exception: IOException) {
+                    result.error("103", "couldnt copy file", null)
+                    return
+                }
+                
+                resultPaths.add(target.absolutePath)
                 handler.post {
-                    context!!.sendBroadcast(Intent(ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(itemFile)))
+                    context!!.sendBroadcast(Intent(ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(target)))
                 }
             }
             handler.post {

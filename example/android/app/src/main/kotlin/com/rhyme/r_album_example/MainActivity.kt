@@ -1,4 +1,4 @@
-package com.rhyme.r_album_example
+package com.clragon.copy_to_gallery_example
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

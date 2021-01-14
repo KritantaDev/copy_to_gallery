@@ -3,10 +3,10 @@ import UIKit
 import Photos
 import MobileCoreServices
 
-public class SwiftRAlbumPlugin: NSObject, FlutterPlugin {
+public class CopyToGalleryPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "com.rhyme_lph/r_album", binaryMessenger: registrar.messenger())
-    let instance = SwiftRAlbumPlugin()
+    let channel = FlutterMethodChannel(name: "com.clragon/copy_to_gallery", binaryMessenger: registrar.messenger())
+    let instance = CopyToGalleryPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
@@ -22,29 +22,29 @@ public class SwiftRAlbumPlugin: NSObject, FlutterPlugin {
         result(FlutterMethodNotImplemented)
     }
   }
-    
-    private func createAlbum(_ call: FlutterMethodCall, result: @escaping FlutterResult){
+
+  private func createAlbum(_ call: FlutterMethodCall, result: @escaping FlutterResult){
+      let arguments = call.arguments as! Dictionary<String,Any>
+      let albumName = arguments["albumName"] as! String
+      AlbumSaver(folderName: albumName).createAlbumIfNeeded(completion: result)
+  }
+
+  private func saveAlbum(_ call: FlutterMethodCall, result: @escaping FlutterResult){
         let arguments = call.arguments as! Dictionary<String,Any>
         let albumName = arguments["albumName"] as! String
-        AlbumSaver(folderName: albumName).createAlbumIfNeeded(completion: result)
-    }
-    
-    private func saveAlbum(_ call: FlutterMethodCall, result: @escaping FlutterResult){
-         let arguments = call.arguments as! Dictionary<String,Any>
-         let albumName = arguments["albumName"] as! String
-         let files = arguments["files"] as! [String]
-         let albumSaver = AlbumSaver(folderName: albumName)
-        for path in files.values {
-            let asset = AVURLAsset.init(url: URL(fileURLWithPath: path), options: nil)
-            let tracks = asset.tracks(withMediaType: AVMediaType.video)
-            if (tracks.count > 0) {
-                albumSaver.saveVideo(filePath: path)
-            } else {
-                albumSaver.saveImage(filePath: path)
-            }
-        }
-        result(true)
-    }
+        let files = arguments["files"] as! [String]
+        let albumSaver = AlbumSaver(folderName: albumName)
+      for path in files.keys {
+          let asset = AVURLAsset.init(url: URL(fileURLWithPath: path), options: nil)
+          let tracks = asset.tracks(withMediaType: AVMediaType.video)
+          if (tracks.count > 0) {
+              albumSaver.saveVideo(filePath: path)
+          } else {
+              albumSaver.saveImage(filePath: path)
+          }
+      }
+      result(true)
+  }
 }
 
 // ref https://stackoverflow.com/questions/28708846/how-to-save-image-to-custom-album
