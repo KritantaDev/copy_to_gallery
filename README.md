@@ -6,7 +6,7 @@ Works for iOS and Android.
 
 ## Usage
 
-1. add this in `pubspec.yaml`.
+1. add to `pubspec.yaml`.
 
 ```dart
 dependencies:
@@ -21,16 +21,16 @@ dependencies:
 import 'package:copy_to_gallery/copy_to_gallery.dart';
 ```
 
-3. (optional) create a new album.
+3. (optional) create a new album
 
 ```dart
 await CopyToGallery.createAlbum("album name");
 ```
 
-4. save image or video files in album.
+4. save image or video files to the album
 
 ```dart
-await CopyToGallery.copyPictures("album name", ["file path 1", "file path2 "...]);
+await CopyToGallery.copyPictures("album name", ["file path 1", "file path 2 "...]);
 ```
 
 - or with names (are ignored on iOS):
