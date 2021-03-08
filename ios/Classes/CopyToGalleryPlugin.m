@@ -10,6 +10,6 @@
 
 @implementation CopyToGalleryPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftCopyToGallerylugin registerWithRegistrar:registrar];
+  [CopyToGallerylugin registerWithRegistrar:registrar];
 }
 @end
