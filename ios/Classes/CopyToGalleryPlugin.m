@@ -8,7 +8,7 @@
 #import "copy_to_gallery-Swift.h"
 #endif
 
-@implementation CopyToGallerylugin
+@implementation CopyToGalleryPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   [SwiftCopyToGallerylugin registerWithRegistrar:registrar];
 }
