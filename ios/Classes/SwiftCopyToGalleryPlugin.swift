@@ -3,7 +3,7 @@ import UIKit
 import Photos
 import MobileCoreServices
 
-public class CopyToGalleryPlugin: NSObject, FlutterPlugin {
+public class SwiftCopyToGalleryPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.clragon/copy_to_gallery", binaryMessenger: registrar.messenger())
     let instance = CopyToGalleryPlugin()
