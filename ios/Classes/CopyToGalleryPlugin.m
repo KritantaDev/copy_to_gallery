@@ -1,4 +1,4 @@
-#import "CopyToGallery.h"
+#import "CopyToGalleryPlugin.h"
 #if __has_include(<copy_to_gallery/copy_to_gallery-Swift.h>)
 #import <copy_to_gallery/copy_to_gallery-Swift.h>
 #else
